@@ -174,8 +174,8 @@
 	function triggerOnScreen(item) {
 		var measure = getElementOnScreenMeasurements(item.$element);
 		//check if measure has the same values as last
-		if (item._onscreen !== undefined && item._onscreen === measure.uniq) return;
-		item._onscreen = measure.uniq;
+		if (item._onscreen !== undefined && item._onscreen === measure.uniqueMeasurementId) return;
+		item._onscreen = measure.uniqueMeasurementId;
 
 		item.$element.trigger('onscreen', measure );
 	}
@@ -184,8 +184,8 @@
 		var measure = getElementOnScreenMeasurements(item.$element);
 
 		//check if measure has the same values as last
-		if (item._onscreen !== undefined && item._onscreen === measure.uniq) return;
-		item._onscreen = measure.uniq;
+		if (item._onscreen !== undefined && item._onscreen === measure.uniqueMeasurementId) return;
+		item._onscreen = measure.uniqueMeasurementId;
 
 		var visiblePartY = (measure.percentFromTop > 0 && measure.percentFromTop < 100) && (measure.percentFromBottom > 0 && measure.percentFromBottom < 100) ? "both" : (measure.percentFromTop > 0 && measure.percentFromTop < 100) ? "top" : (measure.percentFromBottom > 0 && measure.percentFromBottom < 100) ? "bottom" : "none";
 		var visiblePartX = (measure.percentFromLeft > 0 && measure.percentFromLeft < 100) && (measure.percentFromRight > 0 && measure.percentFromRight < 100) ? "both" : (measure.percentFromLeft > 0 && measure.percentFromLeft < 100) ? "left" : (measure.percentFromRight > 0 && measure.percentFromRight < 100) ? "right" : "none";
