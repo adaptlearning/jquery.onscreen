@@ -47,7 +47,7 @@ percentFromLeft: Percentage offset of left from window left by window width
 percentFromBottom: Percentage offset of bottom from window bottom by window height  
 percentFromRight: Percentage offset of right from window right by window width  
 percentInview: Percentage area inview compared to the total possible inview area  
-percentInviewHorizonal: Percentage horizonally inview compared to the total possible inview horizonally    
+percentInviewHorizontal: Percentage horizonally inview compared to the total possible inview horizonally    
 percentInviewVertical: Percentage vertically inview compared to the total possible inview vertically    
 uniqueMeasurementId: Unique measurement Id  
 
