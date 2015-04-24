@@ -1,5 +1,5 @@
 /*
-* jquery.onscreen
+* jquery.onscreen 2014-04-24 https://github.com/cgkineo/jquery.onscreen
 * License - http://github.com/adaptlearning/adapt_framework/LICENSE
 * Maintainers - Oliver Foster <oliver.foster@kineo.com>
 */
@@ -93,6 +93,8 @@
 		var area = height * width;
 		var inviewArea = inviewV * inviewH;
 		var inviewP = Math.round((100 / area) * inviewArea);
+		var inviewHeightP = Math.round((100 / height) * inviewV);
+		var inviewWidthP = Math.round((100 / width) * inviewH);
 
 		var uniq = ""+top+left+bottom+right+height+width+wHeight+wWidth;
 
@@ -106,6 +108,8 @@
 			percentFromBottom: bottomP, 
 			percentFromRight: rightP, 
 			percentInview: inviewP, 
+			percentInviewHorizontal: inviewWidthP,
+			percentInviewVertical: inviewHeightP,
 			uniqueMeasurementId: uniq 
 		};
 	}
