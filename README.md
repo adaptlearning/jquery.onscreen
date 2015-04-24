@@ -11,7 +11,7 @@ The event will only fire when the element changes in its view state. It won’t 
 **Handler parameters / view states**  
 isInView: Indicates the visible state.  
 visiblePartX: Detects which horizontal part of the element is visible to the user (possible values: left, right, both, none)  
-visiblePartY: detects which vertical part of the element is visible to the user (possible values: top, bottom, both, none)  
+visiblePartY: Detects which vertical part of the element is visible to the user (possible values: top, bottom, both, none)  
 
 ```
 $('div').on('inview', function(event, isInView, visiblePartX, visiblePartY) {
