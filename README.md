@@ -66,4 +66,18 @@ $('div').on('onscreen', function(event, measurement ) {
 });
 
 $('div').off('onscreen');
+
+
+$('div').onscreen() = { 
+	top: x,  
+	left: x,  
+	bottom: x,  
+	right: x,  
+	percentFromTop: x,  
+	percentFromLeft: x,  
+	percentFromBottom: x,   
+	percentFromRight: x, 
+	percentInview: x,  
+	uniqueMeasurementId: x   
+};  
 ```
