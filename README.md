@@ -49,6 +49,7 @@ percentFromRight: Percentage offset of right from window right by window width
 percentInview: Percentage area inview compared to the total possible inview area  
 percentInviewHorizontal: Percentage horizonally inview compared to the total possible inview horizonally    
 percentInviewVertical: Percentage vertically inview compared to the total possible inview vertically    
+onscreen: True/false  
 uniqueMeasurementId: Unique measurement Id  
 
 ```
@@ -78,6 +79,7 @@ $('div').onscreen() = {
 	percentFromBottom: x,   
 	percentFromRight: x, 
 	percentInview: x,  
+	onscreen: x,
 	uniqueMeasurementId: x   
 };  
 ```
