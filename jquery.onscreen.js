@@ -100,7 +100,7 @@
 
 		var onscreen = true;
 		if (rightP > 100 || leftP > 100 || bottomP > 100 || topP > 100) onscreen = false;
-		if (!$element.is(":visible")) onscreen = false;
+		if (!$element.is(":visible") || $element.css("visibility") == "hidden") onscreen = false;
 
 		return { 
 			top: top, 
