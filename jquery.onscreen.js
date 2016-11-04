@@ -1,5 +1,5 @@
 'use strict';
-// jquery.onscreen 2015-11-04 https://github.com/adaptlearning/jquery.onscreen
+// jquery.onscreen 2016-11-04 https://github.com/adaptlearning/jquery.onscreen
 
 (function() {
 
