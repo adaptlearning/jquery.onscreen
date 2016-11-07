@@ -39,6 +39,7 @@
         shouldReProcess: true,
 
         register: function(element, data, type) {
+            var isLocked = locking.isLocked();
 
             var $element = $(element);
             handlers.registered.push({ 
@@ -46,7 +47,7 @@
                 data: data, 
                 $element: $element,
                 type: type,
-                _onscreen: measurements.get($element).uniqueMeasurementId
+                _onscreen: isLocked ? null : measurements.get($element).uniqueMeasurementId
             });
             handlers.shouldReProcess = true;
 
@@ -217,6 +218,8 @@
                 loop.repeat();
             }
 
+            if (locking.isLocked()) return;
+
             handlers.process();
 
         },
@@ -264,30 +267,83 @@
 
     //jQuery interfaces
     //element functions
-    $.fn.onscreen = function(callback) {
+    $.extend($.fn, {
 
-        if (callback) {
-            //standard event attachment jquery api behaviour
-            this.on("onscreen", callback);
-            return this;
+        onscreen: function onscreen(callback) {
+
+            if (callback) {
+                //standard event attachment jquery api behaviour
+                this.on("onscreen", callback);
+                return this;
+            }
+
+            return measurements.get(this);
+
+        },
+
+        inview: function inview(callback) {
+
+            if (callback) {
+                //standard event attachment jquery api behaviour
+                this.on("inview", callback);
+                return this;
+            }
+
+            return measurements.get(this);
+
         }
 
-        return measurements.get(this);
+    });
+    
+    //interface to allow for inview/onscreen to be disabled
+    var locking =  {
+        locks: [],
 
-    };
-    $.fn.inview = function(callback) {
+        lock: function(name) {
 
-        if (callback) {
-            //standard event attachment jquery api behaviour
-            this.on("inview", callback);
-            return this;
+            if (locking.isLocked(name)) return;
+            locking.locks.push(name);
+
+        },
+
+        unlock: function(name) {
+
+            if (!locking.isLocked(name)) return;
+
+            for (var i = 0, l = locking.locks.length; i < l; i++) {
+                var lock = locking.locks[i];
+                if (lock == name) {
+                    locking.locks.splice(i,1);
+                    break;
+                }
+            }
+
+            loop.start();
+
+        },
+
+        isLocked: function(name) {
+
+            if (!name) return (locking.locks.length > 0);
+
+            for (var i = 0, l = locking.locks.length; i < l; i++) {
+                var lock = locking.locks[i];
+                if (lock == name) {
+                    return true;
+                }
+            }
+            return false;
+            
         }
 
-        return measurements.get(this);
-
     };
+
     //force an inview check - standard trigger event jquery api behaviour
-    $.inview = $.onscreen = loop.start;
+    $.inview = $.onscreen = function() {
+        loop.start();
+    };
+    //attach locking interface to $.inview.lock(name); etc
+    $.extend($.inview, locking);
 
     //window size handlers
     var wndw = {
@@ -415,7 +471,6 @@
         }
 
     };
-    
 
     //attach event handlers
     $(window).on({
