@@ -174,7 +174,7 @@
 
         lastStartEvent: 0,
         timeoutHandle: null,
-        intervalDuration: 50,
+        intervalDuration: 100,
 
         start: function() {
 
@@ -213,7 +213,7 @@
                 //something to check
                 loop.stop();
                 //speed up to make more responsive
-                loop.intervalDuration = 50;
+                loop.intervalDuration = 100;
                 loop.repeat();
             }
 
