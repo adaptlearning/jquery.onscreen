@@ -180,8 +180,7 @@
 		},
 
 		repeat: function() {
-
-			var intervalAttached = (loop.timeoutHandle !== null);
+			
 			loop.stop();
 			loop.timeoutHandle = setTimeout(loop.main, loop.intervalDuration);
 
