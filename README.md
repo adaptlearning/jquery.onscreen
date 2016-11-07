@@ -4,7 +4,7 @@ Inview replacement with extra functionality
 
 ##Usage
 
-####Inview
+###Inview
 
 The event will only fire when the element changes in its view state. It won’t keep firing if the user scrolls and the element remains in view.
 
@@ -33,7 +33,7 @@ $('div').off('inview');
 ```
 
 
-####Onscreen
+###Onscreen
 
 The event will only fire when the element changes in its view state. It will keep firing if the user scrolls and the element remains on screen or not.  
 
@@ -83,3 +83,14 @@ $('div').onscreen() = {
 	uniqueMeasurementId: x   
 };  
 ```
+
+###Locking
+
+```
+$.inview.lock("name");
+$.inview.unlock("name");
+$.inview.isLocked("name");
+$.inview.isLocked();
+```
+
+This will stop inview/onscreen from processing.
