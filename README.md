@@ -107,3 +107,14 @@ $.inview.isLocked();
 ```
 
 This will stop inview/onscreen from processing.
+
+###Config
+
+Stop scroll over inview behaviour
+```
+
+$.inview.config({
+  allowScrollOver: false
+});
+
+```
