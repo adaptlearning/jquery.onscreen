@@ -140,11 +140,11 @@
                 visiblePartY //top, bottom, both, none
             ];
 
-            if (item._inviewPreviousState !== undefined ) {
+            if (item._inviewPreviousState !== undefined && config.options.allowScrollOver ) {
                 //this is for browsers which pause javascript execution on scroll
 
                 //check previous state and current state
-                var wasScrolledOver = (item._measurePreviousState.percentFromBottom <= 0 && measure.percentFromBottom >= 100 );
+                var wasScrolledOver = (item._measurePreviousState.percentFromBottom <= 100 && measure.percentFromBottom >= 100 );
                 
                 //if inview state hasn't changed, don't retrigger event
                 if (item._inviewPreviousState[0] == inviewState[0] &&
@@ -338,12 +338,28 @@
 
     };
 
+    var config = {
+        
+        options: {
+            allowScrollOver: true
+        },
+
+        config: function(options) {
+            if (typeof options !== "object") return;
+
+            $.extend(config.options, options);
+
+        }
+
+    };
+
+
     //force an inview check - standard trigger event jquery api behaviour
     $.inview = $.onscreen = function() {
         loop.start();
     };
     //attach locking interface to $.inview.lock(name); etc
-    $.extend($.inview, locking);
+    $.extend($.inview, locking, config);
 
     //window size handlers
     var wndw = {
