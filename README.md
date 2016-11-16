@@ -29,7 +29,14 @@ $('div').on('inview', function(event, isInView, visiblePartX, visiblePartY) {
   }
 });
 
+$('div').inview(function(event, isInView, visiblePartX, visiblePartY) { //alternate syntax
+   //...
+});
+
 $('div').off('inview');
+$('div').off('inview', callback);
+
+$.inview(); //trigger a check
 ```
 
 
@@ -53,7 +60,7 @@ onscreen: True/false
 uniqueMeasurementId: Unique measurement Id  
 
 ```
-$('div').on('onscreen', function(event, measurement ) {
+$('div').on('onscreen', function(event, measurement) {
   if (measurement.percentInview > 0) {
     // element is now visible in the viewport
     if (measurement.percentInviewVertical < 50) {
@@ -66,8 +73,12 @@ $('div').on('onscreen', function(event, measurement ) {
   }
 });
 
-$('div').off('onscreen');
+$('div').onscreen(function(event, measurement) { // alternate syntax
+  //...
+});
 
+$('div').off('onscreen');
+$('div').off('onscreen', callback);
 
 $('div').onscreen() = { 
 	top: x,  
@@ -82,6 +93,8 @@ $('div').onscreen() = {
 	onscreen: x,
 	uniqueMeasurementId: x   
 };  
+
+$.onscreen(); //trigger a check
 ```
 
 ###Locking
