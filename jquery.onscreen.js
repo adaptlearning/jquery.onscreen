@@ -395,7 +395,7 @@
             
         },
 
-        get: function get($element) {
+        get: function($element) {
 
             if ($element.length == 0) return;
 
