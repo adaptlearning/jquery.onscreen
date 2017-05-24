@@ -1,5 +1,5 @@
 'use strict';
-// jquery.onscreen 2017-01-05 https://github.com/adaptlearning/jquery.onscreen
+// jquery.onscreen 2017-05-24 https://github.com/adaptlearning/jquery.onscreen
 
 (function() {
 
@@ -473,7 +473,32 @@
 
             var cssHidden = (el.style.display == "none" || el.style.visibility == "hidden");
             if (cssHidden) onscreen = false;
-            //do we need to look at parent's display: none and visibility:hidden ^?
+            
+            if (onscreen) {
+                
+                // perform some extra checks to make sure item is onscreen
+                var parents = measurements.getParents(el);
+                // got through all the parents except the html tag
+                for (var i = 0, l = parents.length-1; i < l; i++) {
+                    var parent = parents[i];
+                
+                    cssHidden = (parent.style.display == "none" || el.style.visibility == "hidden");
+                    // check if parents are visibility hidden or display none
+                    if (cssHidden) {
+                        onscreen = false;
+                        break;
+                    }
+
+                    // check if child is out of bounds inside its parent
+                    var isOutOfBounds = measurements.isOutOfBounds(el, parent)
+                    if (isOutOfBounds) {
+                        onscreen = false;
+                        break;
+                    }
+
+                }
+
+            }
 
             var uniqueMeasurementId = ""+top+left+bottom+right+height+width+wndw.height+wndw.width+onscreen;
             
@@ -493,6 +518,47 @@
                 uniqueMeasurementId: uniqueMeasurementId,
                 timestamp: (new Date()).getTime()
             };
+
+        },
+
+        getParents: function(element) {
+            var parents = [];
+            var parent;
+            while (parent = element.parentElement) {
+                parents.push(parent);
+                element = parent;
+            }
+            return parents;
+        },
+
+        isOutOfBounds: function(element, parent) {
+
+            var isScrollWidthOverflowing = (parent.clientWidth < parent.scrollWidth);
+            var isScrollHeightOverflowing = (parent.clientHeight < parent.scrollHeight);
+            var isOverflowing = (isScrollWidthOverflowing || isScrollHeightOverflowing);;
+            
+            var $parent = $(parent);
+
+            if (!isOverflowing || ($parent.css("overflow") === "visible")) {
+                return false;
+            }
+
+            var $element = $(element);
+
+            var childPos = $element.offset();
+            var parentPos = $parent.offset();
+
+            var childOffsetTop = (childPos.top - parentPos.top);
+            var childOffsetLeft = (childPos.left - parentPos.left);
+            var childOffsetBottom = (childOffsetTop + element.clientHeight);
+            var childOffsetRight = (childOffsetLeft + element.clientWidth);
+
+            var isOutOfBounds = (childOffsetTop > parent.clientHeight
+                || childOffsetLeft > parent.clientWidth 
+                || childOffsetBottom < 0
+                || childOffsetRight < 0);
+
+            return isOutOfBounds;
 
         }
 
