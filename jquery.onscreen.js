@@ -478,7 +478,7 @@
                 
                 // perform some extra checks to make sure item is onscreen
                 var parents = measurements.getParents(el);
-                // got through all the parents except the html tag
+                // go through all the parents except the html tag
                 for (var i = 0, l = parents.length-1; i < l; i++) {
                     var parent = parents[i];
                 
