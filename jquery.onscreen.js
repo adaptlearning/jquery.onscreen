@@ -482,7 +482,7 @@
                 for (var i = 0, l = parents.length-1; i < l; i++) {
                     var parent = parents[i];
                 
-                    cssHidden = (parent.style.display == "none" || el.style.visibility == "hidden");
+                    cssHidden = (parent.style.display == "none" || parent.style.visibility == "hidden");
                     // check if parents are visibility hidden or display none
                     if (cssHidden) {
                         onscreen = false;
