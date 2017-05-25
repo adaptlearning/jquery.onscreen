@@ -535,7 +535,7 @@
 
             var isScrollWidthOverflowing = (parent.clientWidth < parent.scrollWidth);
             var isScrollHeightOverflowing = (parent.clientHeight < parent.scrollHeight);
-            var isOverflowing = (isScrollWidthOverflowing || isScrollHeightOverflowing);;
+            var isOverflowing = (isScrollWidthOverflowing || isScrollHeightOverflowing);
             
             var $parent = $(parent);
 
