@@ -243,6 +243,8 @@
     $.extend($.event.special, {
 
         onscreen: {
+            
+            noBubble: true,
 
             add: function(data) {
                 handlers.register(this, data, handlers.TYPE.onscreen);
@@ -255,6 +257,8 @@
         },
 
         inview: {
+            
+            noBubble: true,
 
             add: function(data) {
                 handlers.register(this, data, handlers.TYPE.inview);
