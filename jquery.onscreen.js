@@ -1,5 +1,5 @@
 'use strict';
-// jquery.onscreen 2017-05-24 https://github.com/adaptlearning/jquery.onscreen
+// jquery.onscreen 2017-06-19 https://github.com/adaptlearning/jquery.onscreen
 
 (function() {
 
@@ -179,6 +179,7 @@
         lastStartEvent: 0,
         timeoutHandle: null,
         intervalDuration: 100,
+        hasRaf: false,
 
         start: function() {
 
@@ -190,7 +191,12 @@
         repeat: function() {
             
             loop.stop();
-            loop.timeoutHandle = setTimeout(loop.main, loop.intervalDuration);
+
+            if (loop.hasRaf) {
+                loop.timeoutHandle = requestAnimationFrame(loop.main);
+            } else {
+                loop.timeoutHandle = setTimeout(loop.main, loop.intervalDuration);
+            }
 
         },
 
@@ -203,7 +209,22 @@
             return true;
         },
 
+        isThrottled: function() {
+            var passedTime = (new Date()).getTime() - loop.lastMain;
+            if (passedTime > loop.intervalDuration) return false;
+            return true;
+        },
+
+        lastMain: (new Date()).getTime(),
+
         main: function() {
+
+            if (loop.isThrottled()) {
+                loop.repeat();
+                return;
+            }
+
+            loop.lastMain = (new Date()).getTime();
 
             if (loop.hasExpired()) return;
 
@@ -232,8 +253,13 @@
             var intervalAttached = (loop.timeoutHandle !== null);
             if (!intervalAttached) return;
 
-            clearTimeout(loop.timeoutHandle);
-            loop.timeoutHandle = null;
+            if (loop.hasRaf) {
+                cancelAnimationFrame(loop.timeoutHandle);
+                loop.timeoutHandle = null;
+            } else {
+                clearTimeout(loop.timeoutHandle);
+                loop.timeoutHandle = null;
+            }
 
         }
 
@@ -396,6 +422,7 @@
             var body = $("body")[0].getBoundingClientRect();
             //make sure to get height and width independently if getBoundingClientRect doesn't return height and width;
             measurements.supplimentDimensions = (body.width === undefined);
+            loop.hasRaf = (window.requestAnimationFrame && window.cancelAnimationFrame);
             
         },
 
@@ -570,11 +597,11 @@
 
     //attach event handlers
     $(window).on({
-        "scroll mousedown touchstart keydown": loop.start,
+        "touchmove scroll mousedown keydown": loop.start,
         "resize": wndw.resize
     });
 
-    measurements.featureDetect();
+    $(measurements.featureDetect);
     wndw.resize();
 
 })();
