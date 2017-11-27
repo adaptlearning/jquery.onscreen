@@ -509,7 +509,7 @@
             
             if (onscreen) {
 
-				// recheck display and visibility from computed styles
+                // recheck display and visibility from computed styles
                 var style = window.getComputedStyle(el, null);
                 var cssHidden = (style.display == "none" || style.visibility == "hidden");
                 if (cssHidden) onscreen = false;
@@ -595,7 +595,7 @@
             var childOffsetBottom = (childOffsetTop + element.clientHeight);
             var childOffsetRight = (childOffsetLeft + element.clientWidth);
 
-			// check inclusive of bounding rectangle edges
+            // check inclusive of bounding rectangle edges
             var isOutOfBounds = (childOffsetTop >= parent.clientHeight
                 || childOffsetLeft >= parent.clientWidth 
                 || childOffsetBottom <= 0
