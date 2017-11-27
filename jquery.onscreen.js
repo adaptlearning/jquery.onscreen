@@ -1,5 +1,5 @@
 'use strict';
-// jquery.onscreen 2017-07-11 https://github.com/adaptlearning/jquery.onscreen
+// jquery.onscreen 2017-11-27 https://github.com/adaptlearning/jquery.onscreen
 
 (function() {
 
@@ -508,6 +508,15 @@
             if (cssHidden) onscreen = false;
             
             if (onscreen) {
+
+				// recheck display and visibility from computed styles
+                var style = window.getComputedStyle(el, null);
+                var cssHidden = (style.display == "none" || style.visibility == "hidden");
+                if (cssHidden) onscreen = false;
+
+            }
+
+            if (onscreen) {
                 
                 // perform some extra checks to make sure item is onscreen
                 var parents = measurements.getParents(el);
@@ -586,10 +595,11 @@
             var childOffsetBottom = (childOffsetTop + element.clientHeight);
             var childOffsetRight = (childOffsetLeft + element.clientWidth);
 
-            var isOutOfBounds = (childOffsetTop > parent.clientHeight
-                || childOffsetLeft > parent.clientWidth 
-                || childOffsetBottom < 0
-                || childOffsetRight < 0);
+			// check inclusive of bounding rectangle edges
+            var isOutOfBounds = (childOffsetTop >= parent.clientHeight
+                || childOffsetLeft >= parent.clientWidth 
+                || childOffsetBottom <= 0
+                || childOffsetRight <= 0);
 
             return isOutOfBounds;
 
