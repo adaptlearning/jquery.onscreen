@@ -504,27 +504,20 @@
             var hasNoSize = (height <= 0 && width <= 0);
             if (hasNoSize) onscreen = false;
 
-            var cssHidden = (el.style.display == "none" || el.style.visibility == "hidden");
+            var cssHidden = measurements.isElementHidden(el);
             if (cssHidden) onscreen = false;
-            
-            if (onscreen) {
-
-                // recheck display and visibility from computed styles
-                var style = window.getComputedStyle(el, null);
-                var cssHidden = (style.display == "none" || style.visibility == "hidden");
-                if (cssHidden) onscreen = false;
-
-            }
 
             if (onscreen) {
                 
                 // perform some extra checks to make sure item is onscreen
                 var parents = measurements.getParents(el);
+                
                 // go through all the parents except the html tag
                 for (var i = 0, l = parents.length-1; i < l; i++) {
                     var parent = parents[i];
                 
-                    cssHidden = (parent.style.display == "none" || parent.style.visibility == "hidden");
+                    cssHidden = measurements.isElementHidden(parent);
+                    
                     // check if parents are visibility hidden or display none
                     if (cssHidden) {
                         onscreen = false;
@@ -571,6 +564,15 @@
                 element = parent;
             }
             return parents;
+        },
+
+        isElementHidden: function(element) {
+            var cssHidden = (element.style.display == "none" || element.style.visibility == "hidden");
+            if (cssHidden) return true;
+
+            var style = window.getComputedStyle(element, null);
+            cssHidden = (style.display == "none" || style.visibility == "hidden");
+            return cssHidden;
         },
 
         isOutOfBounds: function(element, parent) {
