@@ -351,9 +351,7 @@
 
     var config = {
         
-        options: {
-            allowScrollOver: true
-        },
+        options: {},
 
         config: function(options) {
             if (typeof options !== "object") return;
