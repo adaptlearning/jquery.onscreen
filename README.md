@@ -8,7 +8,6 @@ Inview replacement with extra functionality
 
 The event will only fire when the element changes in its view state. It won’t keep firing if the user scrolls and the element remains in view.
 
-#### Handler parameters / view states
 `event`: jQuery event object.    
 `isInView`: Indicates the visible state.  
 `visiblePartX`: Detects which horizontal part of the element is visible to the user (possible values: left, right, both, none)  
@@ -46,7 +45,6 @@ $.inview(); //trigger a check
 
 The event will only fire when the element changes in its view state. It will keep firing if the user scrolls and the element remains on screen or not.  
 
-#### Handler parameters / view states
 `event`: jQuery event object.    
 `top`: Offset of top from top of window  
 `left`: Offset of left from left side of window  
