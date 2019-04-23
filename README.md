@@ -1,5 +1,5 @@
 # jquery.onscreen
-Inview replacement with extra functionality
+[Inview](https://github.com/zuk/jquery.inview) replacement with extra functionality and slightly modified scope.
 
 
 ## Usage
